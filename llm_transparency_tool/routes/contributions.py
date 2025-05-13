@@ -13,7 +13,7 @@ from typeguard import typechecked
 
 
 @torch.no_grad()
-@typechecked
+#@typechecked
 def get_contributions(
     parts: torch.Tensor,
     whole: torch.Tensor,
@@ -53,7 +53,7 @@ def get_contributions(
 
 
 @torch.no_grad()
-@typechecked
+#@typechecked
 def get_contributions_with_one_off_part(
     parts: torch.Tensor,
     one_off: torch.Tensor,
@@ -90,7 +90,7 @@ def get_contributions_with_one_off_part(
 
 
 @torch.no_grad()
-@typechecked
+#@typechecked
 def get_attention_contributions(
     resid_pre: Float[torch.Tensor, "batch pos d_model"],
     resid_mid: Float[torch.Tensor, "batch pos d_model"],
@@ -125,7 +125,7 @@ def get_attention_contributions(
 
 
 @torch.no_grad()
-@typechecked
+#@typechecked
 def get_mlp_contributions(
     resid_mid: Float[torch.Tensor, "batch pos d_model"],
     resid_post: Float[torch.Tensor, "batch pos d_model"],
@@ -143,7 +143,7 @@ def get_mlp_contributions(
 
 
 @torch.no_grad()
-@typechecked
+#@typechecked
 def get_decomposed_mlp_contributions(
     resid_mid: Float[torch.Tensor, "d_model"],
     resid_post: Float[torch.Tensor, "d_model"],

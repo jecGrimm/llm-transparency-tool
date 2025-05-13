@@ -158,24 +158,24 @@ class TransformerLensTransparentLlm(TransparentLlm):
             raise self._run_exception
         return self._last_run.logits.shape[0]
 
-    @typechecked
+    #@typechecked # Jana: commented out because of colab issues, TODO: in documentation aufnehmen
     def tokens(self) -> Int[torch.Tensor, "batch pos"]:
         if not self._last_run:
             raise self._run_exception
         return self._last_run.tokens
 
-    @typechecked
+    #@typechecked
     def tokens_to_strings(self, tokens: Int[torch.Tensor, "pos"]) -> List[str]:
         return self._model.to_str_tokens(tokens)
 
-    @typechecked
+    #@typechecked
     def logits(self) -> Float[torch.Tensor, "batch pos d_vocab"]:
         if not self._last_run:
             raise self._run_exception
         return self._last_run.logits
 
     @torch.no_grad()
-    @typechecked
+    #@typechecked
     def unembed(
         self,
         t: Float[torch.Tensor, "d_model"],
@@ -197,13 +197,13 @@ class TransformerLensTransparentLlm(TransparentLlm):
 
     # ================= Methods related to the residual stream =================
 
-    @typechecked
+    #@typechecked
     def residual_in(self, layer: int) -> Float[torch.Tensor, "batch pos d_model"]:
         if not self._last_run:
             raise self._run_exception
         return self._get_block(layer, "hook_resid_pre")
 
-    @typechecked
+    #@typechecked
     def residual_after_attn(
         self, layer: int
     ) -> Float[torch.Tensor, "batch pos d_model"]:
@@ -211,7 +211,7 @@ class TransformerLensTransparentLlm(TransparentLlm):
             raise self._run_exception
         return self._get_block(layer, "hook_resid_mid")
 
-    @typechecked
+    #@typechecked
     def residual_out(self, layer: int) -> Float[torch.Tensor, "batch pos d_model"]:
         if not self._last_run:
             raise self._run_exception
@@ -219,14 +219,14 @@ class TransformerLensTransparentLlm(TransparentLlm):
 
     # ================ Methods related to the feed-forward layer ===============
 
-    @typechecked
+    #@typechecked
     def ffn_out(self, layer: int) -> Float[torch.Tensor, "batch pos d_model"]:
         if not self._last_run:
             raise self._run_exception
         return self._get_block(layer, "hook_mlp_out")
 
     @torch.no_grad()
-    @typechecked
+    #@typechecked
     def decomposed_ffn_out(
         self,
         batch_i: int,
@@ -238,7 +238,7 @@ class TransformerLensTransparentLlm(TransparentLlm):
         processed_activations = self._get_block(layer, "mlp.hook_post")[batch_i][pos]
         return torch.mul(processed_activations.unsqueeze(-1), self._model.blocks[layer].mlp.W_out)
 
-    @typechecked
+    #@typechecked
     def neuron_activations(
         self,
         batch_i: int,
@@ -247,7 +247,7 @@ class TransformerLensTransparentLlm(TransparentLlm):
     ) -> Float[torch.Tensor, "hidden"]:
         return self._get_block(layer, "mlp.hook_pre")[batch_i][pos]
 
-    @typechecked
+    #@typechecked
     def neuron_output(
         self,
         layer: int,
@@ -257,13 +257,13 @@ class TransformerLensTransparentLlm(TransparentLlm):
 
     # ==================== Methods related to the attention ====================
 
-    @typechecked
+    #@typechecked
     def attention_matrix(
         self, batch_i: int, layer: int, head: int
     ) -> Float[torch.Tensor, "query_pos key_pos"]:
         return self._get_block(layer, "attn.hook_pattern")[batch_i][head]
 
-    @typechecked
+    #@typechecked
     def attention_output_per_head(
         self,
         batch_i: int,
@@ -273,7 +273,7 @@ class TransformerLensTransparentLlm(TransparentLlm):
     ) -> Float[torch.Tensor, "d_model"]:
         return self._get_block(layer, "attn.hook_result")[batch_i][pos][head]
 
-    @typechecked
+    #@typechecked
     def attention_output(
         self,
         batch_i: int,
@@ -283,7 +283,7 @@ class TransformerLensTransparentLlm(TransparentLlm):
         return self._get_block(layer, "hook_attn_out")[batch_i][pos]
 
     @torch.no_grad()
-    @typechecked
+    #@typechecked
     def decomposed_attn(
         self, batch_i: int, layer: int
     ) -> Float[torch.Tensor, "pos key_pos head d_model"]:
