@@ -126,7 +126,8 @@ class TransformerLensTransparentLlm(TransparentLlm):
             tlens_model.set_tokenizer(self.hf_tokenizer, default_padding_side="left")
 
         tlens_model.set_use_attn_result(True)
-        tlens_model.set_use_attn_in(False)
+        # Jana: auskommentiert, weil colab mit GQA einen Fehler geworfen hat
+        #tlens_model.set_use_attn_in(False)
         tlens_model.set_use_split_qkv_input(False)
 
         return tlens_model
