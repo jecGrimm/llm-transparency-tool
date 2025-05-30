@@ -4,7 +4,7 @@
     "debug": true,
     "models": {
         "": null,
-
+        "meta-llama/Llama-3.2-1B-Instruct": null,
         "meta-llama/Meta-Llama-3-8B": null,
         "meta-llama/Meta-Llama-3-70B": null,
         "meta-llama/Meta-Llama-3-8B-Instruct": null,
