@@ -1,6 +1,6 @@
 {
     "allow_loading_dataset_files": true,
-    "preloaded_dataset_filename": "sample_input.txt",
+    "preloaded_dataset_filename": "all.txt",
     "debug": true,
     "models": {
         "": null,
